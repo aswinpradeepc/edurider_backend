@@ -1,3 +1,4 @@
+import os
 """
 Django settings for edurider_backend project.
 
@@ -75,12 +76,18 @@ WSGI_APPLICATION = 'edurider_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'myproject'),
+        'USER': os.getenv('DB_USER', 'myprojectuser'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'mypassword'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
