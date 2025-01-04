@@ -13,7 +13,7 @@ class Command(BaseCommand):
         studentModel.objects.all().delete()
 
         # Generate 30 records
-        for _ in range(30):
+        for _ in range(100):
             student = studentModel.objects.create(
                 name=fake.name(),
                 address=fake.address(),
@@ -24,4 +24,4 @@ class Command(BaseCommand):
             )
             student.save()
 
-        self.stdout.write(self.style.SUCCESS('Successfully created 30 student records'))
+        self.stdout.write(self.style.SUCCESS('Successfully created student records'))

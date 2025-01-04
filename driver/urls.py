@@ -4,7 +4,7 @@ from .views import *
 
 router = routers.DefaultRouter()
 
-router.register(r'', studentViewSet)
+router.register(r'', driverViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
