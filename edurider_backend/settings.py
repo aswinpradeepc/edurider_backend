@@ -26,9 +26,8 @@ SECRET_KEY = 'django-insecure-2%u-wa^ddnjm-mtd@k5$q1z9i=0@lds0s#em6$lo0qc9(q7z&4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ['*','edurider.radr.in','www.edurider.radr.in']
+CSRF_TRUSTED_ORIGINS = ['https://edurider.radr.in', 'https://www.edurider.radr.in']
 # Application definition
 
 INSTALLED_APPS = [
