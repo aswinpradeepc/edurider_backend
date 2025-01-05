@@ -10,11 +10,11 @@ RUN apt-get update && apt-get install -y libpq-dev gcc
 # Copy the requirements file and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py collectstatic --noinput
 
 # Copy the Django project into the container
 COPY . .
 
+RUN python manage.py collectstatic --noinput
 # Expose the port for the Django app
 EXPOSE 8000
 
