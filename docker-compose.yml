@@ -8,20 +8,21 @@ services:
       POSTGRES_USER: myprojectuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: myproject
-    ports:
-      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: always
 
   web:
     build:
       context: .
     container_name: django_container
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
+      - static_volume:/app/static
+      - media_volume:/app/media
+    expose:
+      - 8000
     depends_on:
       - db
     environment:
@@ -29,6 +30,24 @@ services:
       - DB_NAME=myproject
       - DB_USER=myprojectuser
       - DB_PASSWORD=mypassword
+    restart: always
+
+  nginx:
+    image: nginx:1.25
+    container_name: nginx_container
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - static_volume:/app/static
+      - media_volume:/app/media
+    depends_on:
+      - web
+    restart: always
 
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
